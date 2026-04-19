@@ -5,6 +5,7 @@ import com.github.niko91101.springpractice.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -15,16 +16,17 @@ public class UserService {
     }
 
     public List<User> getAllUsers() {
-        return userRepository.allUsers();
+        return userRepository.findAll();
     }
 
-    public User getUserById(int id) {
-        return userRepository.getUser(id);
+    public User getUserById(long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("User with id " + id + " not found"));
     }
 
     public String addUser(User user) {
         if (user != null) {
-            userRepository.addUser(user);
+            userRepository.save(user);
             return "Пользователь добавлен";
         }
 
