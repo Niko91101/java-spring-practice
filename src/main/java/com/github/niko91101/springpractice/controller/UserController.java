@@ -2,6 +2,8 @@ package com.github.niko91101.springpractice.controller;
 
 import com.github.niko91101.springpractice.model.User;
 import com.github.niko91101.springpractice.service.UserService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,8 +29,9 @@ public class UserController {
     }
 
     @PostMapping
-    public String postUser(@RequestBody User user) {
-        return userService.addUser(user);
+    public ResponseEntity<User> postUser(@RequestBody User user) {
+        User savedUser = userService.addUser(user);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
     }
 
 }
