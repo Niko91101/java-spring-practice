@@ -1,11 +1,11 @@
 package com.github.niko91101.springpractice.service;
 
+import com.github.niko91101.springpractice.exception.UserNotFoundExeption;
 import com.github.niko91101.springpractice.model.User;
 import com.github.niko91101.springpractice.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService {
@@ -21,7 +21,7 @@ public class UserService {
 
     public User getUserById(long id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("User with id " + id + " not found"));
+                .orElseThrow(() -> new UserNotFoundExeption(id));
     }
 
     public String addUser(User user) {
