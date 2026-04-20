@@ -24,10 +24,9 @@ public class UserService {
                 .orElseThrow(() -> new UserNotFoundExeption(id));
     }
 
-    public String addUser(User user) {
+    public User addUser(User user) {
         if (user != null) {
-            userRepository.save(user);
-            return "Пользователь добавлен";
+            return userRepository.save(user);
         }
 
         throw new IllegalArgumentException("Не удалось добавить пользователя");

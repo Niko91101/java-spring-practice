@@ -2,6 +2,8 @@ package com.github.niko91101.springpractice.controller;
 
 import com.github.niko91101.springpractice.model.User;
 import com.github.niko91101.springpractice.service.UserService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,18 +19,19 @@ public class UserController {
     }
 
     @GetMapping
-    public List<User> getUsers() {
-        return userService.getAllUsers();
+    public ResponseEntity<List<User>> getUsers() {
+        return ResponseEntity.ok(userService.getAllUsers());
     }
 
     @GetMapping("/{id}")
-    public User getUser(@PathVariable long id) {
-        return userService.getUserById(id);
+    public ResponseEntity<User> getUser(@PathVariable long id) {
+        return ResponseEntity.ok(userService.getUserById(id));
     }
 
     @PostMapping
-    public String postUser(@RequestBody User user) {
-        return userService.addUser(user);
+    public ResponseEntity<User> postUser(@RequestBody User user) {
+        User savedUser = userService.addUser(user);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
     }
 
 }
