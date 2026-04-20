@@ -19,13 +19,13 @@ public class UserController {
     }
 
     @GetMapping
-    public List<User> getUsers() {
-        return userService.getAllUsers();
+    public ResponseEntity<List<User>> getUsers() {
+        return ResponseEntity.ok(userService.getAllUsers());
     }
 
     @GetMapping("/{id}")
-    public User getUser(@PathVariable long id) {
-        return userService.getUserById(id);
+    public ResponseEntity<User> getUser(@PathVariable long id) {
+        return ResponseEntity.ok(userService.getUserById(id));
     }
 
     @PostMapping
