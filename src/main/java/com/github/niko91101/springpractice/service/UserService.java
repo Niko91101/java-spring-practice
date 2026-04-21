@@ -31,4 +31,21 @@ public class UserService {
 
         throw new IllegalArgumentException("Не удалось добавить пользователя");
     }
+
+    public User updateUser(long id, User user) {
+        if (user == null || (!userRepository.existsById(id))) {
+            throw new UserNotFoundExeption(id);
+        }
+
+        user.setId(id);
+        return userRepository.save(user);
+    }
+
+    public void deleteUser(long id) {
+        if (!userRepository.existsById(id)) {
+            throw new UserNotFoundExeption(id);
+        }
+
+        userRepository.deleteById(id);
+    }
 }

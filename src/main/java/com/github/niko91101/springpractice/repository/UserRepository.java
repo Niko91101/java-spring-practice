@@ -10,4 +10,7 @@ import java.util.List;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
+    boolean findByName(String name);
+
+    boolean getUsersById(long id);
 }
