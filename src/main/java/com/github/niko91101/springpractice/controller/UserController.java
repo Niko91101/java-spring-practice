@@ -2,6 +2,8 @@ package com.github.niko91101.springpractice.controller;
 
 import com.github.niko91101.springpractice.model.User;
 import com.github.niko91101.springpractice.service.UserService;
+import jakarta.validation.Valid;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.StreamingHttpOutputMessage;
@@ -31,13 +33,13 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> postUser(@RequestBody User user) {
+    public ResponseEntity<User> postUser(@Valid @RequestBody User user) {
         User savedUser = userService.addUser(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable long id, @RequestBody User user) {
+    public ResponseEntity<User> updateUser(@PathVariable long id, @Valid @RequestBody User user) {
 
         return ResponseEntity.ok(userService.updateUser(id, user));
     }
